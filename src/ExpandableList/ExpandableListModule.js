@@ -1,4 +1,4 @@
-import {Quill} from "react-quill";
+import { Quill } from "react-quill";
 
 const Module = Quill.import('core/module');
 

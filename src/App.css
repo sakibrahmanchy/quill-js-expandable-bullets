@@ -1,3 +1,5 @@
+@import '~quill/dist/quill.snow.css';
+
 .App {
   text-align: center;
 }
@@ -14,7 +16,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,3 +38,79 @@
     transform: rotate(360deg);
   }
 }
+
+.collapsed {
+  display: none;
+}
+
+.expanded {
+  display: block;
+}
+
+.collapsible:hover:before {
+  content: '\25BE \2022';
+  cursor: pointer ;
+}
+
+.expandable::before {
+  content: '\2022';
+  color: black;
+  text-shadow: 1px 1px 5px darkblue;
+}
+
+.expandable:hover:before {
+  content: '\25B8 \2022';
+  cursor: pointer ;
+  text-shadow: 6px 1px 5px darkblue;
+  color: black;
+}
+
+
+.ql-editor li.ql-indent-1:not(.ql-direction-rtl){
+  padding-left: 3em;
+  margin-left: 1em;
+  border-left: dotted 1px;
+}
+
+.ql-editor li.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 3em;
+  margin-left: 3.5em;
+  border-left: dotted 1px;
+}
+
+.ql-editor li.ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 3em;
+  margin-left: 5.5em;
+  border-left: dotted 1px;
+}
+
+.ql-editor li.ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 3em;
+  margin-left: 7.5em;
+  border-left: dotted 1px;
+}
+
+.ql-editor li.ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 3em;
+  margin-left: 9.5em;
+  border-left: dotted 1px;
+}
+
+.ql-editor li.ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 3em;
+  margin-left: 11.5em;
+  border-left: dotted 1px;
+}
+
+.ql-editor li.ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 3em;
+  margin-left: 11.5em;
+  border-left: dotted 1px;
+}
+
+.ql-editor li.ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 3em;
+  margin-left: 11.5em;
+  border-left: dotted 1px;
+}
+

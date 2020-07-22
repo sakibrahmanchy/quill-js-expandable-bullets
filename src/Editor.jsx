@@ -5,9 +5,6 @@ import ExpandableList from "./ExpandableList/ExpandableList";
 import ExpandableListItem from "./ExpandableList/ExpandableListItem";
 import ExpandableListModule from "./ExpandableList/ExpandableListModule";
 
-
-const Delta = Quill.import('delta');
-const Parchment = Quill.import('parchment');
 Quill.register({
     'formats/expandable-list': ExpandableList,
     'formats/expandable-list/item': ExpandableListItem,

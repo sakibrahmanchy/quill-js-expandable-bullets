@@ -7,15 +7,30 @@
   display: block;
 }
 
+.collapsible {
+  pointer-events: none;
+}
+
+.expandable {
+  pointer-events: none;
+}
+
+.collapsible:before {
+  content: '\2022';
+  color: black;
+  pointer-events: all;
+}
+
 .collapsible:hover:before {
   content: '\25BE \2022';
   cursor: pointer ;
 }
 
-.expandable::before {
+.expandable:before {
   content: '\2022';
   color: black;
   text-shadow: 1px 1px 5px darkblue;
+  pointer-events: all;
 }
 
 .expandable:hover:before {

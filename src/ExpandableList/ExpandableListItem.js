@@ -13,28 +13,62 @@ class ExpandableListItem extends ListItem {
         this.domNode.addEventListener('click', this.onClick);
     }
 
-    onClick(event) {
-        const childNodes = this.getChildNodes();
-
-        if (!childNodes.length) {
+    onClick() {
+        if (!this.hasChildNodes()) {
             return;
         }
 
-        let expanded = false;
-        if (!childNodes[0].domNode.classList.contains('collapsed')) {
-            expanded = true;
-        }
-
-        if (expanded) {
+        if (this.isNodeExpanded()) {
             this.collapse();
         } else {
             this.expand();
         }
     }
 
+   hasChildNodes() {
+        const childNodes = this.getChildNodes();
+
+        return Boolean(childNodes.length);
+    }
+
+   isNodeExpanded(ref = null) {
+        let expanded = false;
+
+        const nodeRef = ref ?? this;
+
+        const childNodes = nodeRef.getChildNodes(1);
+
+        if (!childNodes[0].domNode.classList.contains('collapsed')) {
+            expanded = true;
+        }
+
+        return expanded;
+    }
+
+
     format(name, value) {
         if (name === ExpandableList.blotName && !value) {
             this.replaceWith(Parchment.create(this.statics.scope));
+        }
+        else if (name === ExpandableList.blotName && value) {
+            const childNodes = this.getChildNodes(null, this.next);
+            if (childNodes.length) {
+                if (!this.isNodeExpanded(this.next)) {
+                    const nodeLevel = this.getNodeLevel(this.next.domNode);
+                    const liNode = document.createElement('LI');
+                    const content = this.domNode.innerText;
+                    const node = Parchment.create(liNode);
+                    this.domNode.remove();
+                    this.replace(node);
+                    this.next.domNode.innerText = content;
+                    const lastNode =  childNodes[childNodes.length - 1];
+                    this.parent.insertBefore(Parchment.create(liNode), lastNode.next);
+                    if (lastNode.next) {
+                        lastNode.next.domNode.setAttribute('class', `ql-indent-${nodeLevel}`);
+                    }
+                    this.scroll.update();
+                }
+            }
         }
         else {
             super.format(name, value);
@@ -55,16 +89,19 @@ class ExpandableListItem extends ListItem {
         return 0;
     }
 
-    getChildNodes(depth = null) {
+    getChildNodes(depth = null, ref = null) {
         let childNodes = [];
-        if (!this.next) {
+
+        const refNode = ref ?? this;
+
+        if (!refNode.next) {
             return childNodes;
         }
 
-        let next = this.next;
+        let next = refNode.next;
 
-        let nodeLevel = this.getNodeLevel(this.domNode);
-        let nextNodeLevel = this.getNodeLevel(next.domNode);
+        let nodeLevel = refNode.getNodeLevel(refNode.domNode);
+        let nextNodeLevel = refNode.getNodeLevel(next.domNode);
         const depthLevel = depth ? nodeLevel + depth : 8;
 
         if (nodeLevel >= nextNodeLevel) {
@@ -79,7 +116,7 @@ class ExpandableListItem extends ListItem {
             }
 
             next = next.next;
-            nextNodeLevel = this.getNodeLevel(next.domNode);
+            nextNodeLevel = refNode.getNodeLevel(next.domNode);
 
             if (nextNodeLevel > depthLevel) {
                 break;

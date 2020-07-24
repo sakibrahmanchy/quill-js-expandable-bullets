@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Visit https://github.com/facebook/create-react-app for live demo.
+
+![Alt Text](https://github.com/sakibrahmanchy/quill-js-expandable-bullets/blob/master/expandable-bullets.gif)
 
 ## Available Scripts
 

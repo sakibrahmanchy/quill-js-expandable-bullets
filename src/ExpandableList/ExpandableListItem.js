@@ -173,7 +173,7 @@ class ExpandableListItem extends ListItem {
         this.domNode.classList.add('expandable');
 
         const childNodes = this.getChildNodes();
-        console.log(childNodes);
+
         if (childNodes.length) {
             for (let i = 0 ; i < childNodes.length; i++) {
                 const childNode = childNodes[i];

@@ -9,6 +9,7 @@ class ExpandableListItem extends ListItem {
         super(props);
         this.addClassIfNeeded();
 
+        this.wasClicked = false;
         this.onClick = this.onClick.bind(this);
         this.domNode.addEventListener('click', this.onClick);
     }
@@ -18,6 +19,7 @@ class ExpandableListItem extends ListItem {
             return;
         }
 
+        this.wasClicked = true;
         if (this.isNodeExpanded()) {
             this.collapse();
         } else {
@@ -47,10 +49,11 @@ class ExpandableListItem extends ListItem {
 
 
     format(name, value) {
+        console.log(this.wasClicked);
         if (name === ExpandableList.blotName && !value) {
             this.replaceWith(Parchment.create(this.statics.scope));
         }
-        else if (name === ExpandableList.blotName && value) {
+        else if (name === ExpandableList.blotName && value && !this.wasClicked) {
             const childNodes = this.getChildNodes(null, this.next);
             if (childNodes.length) {
                 if (!this.isNodeExpanded(this.next)) {
@@ -73,6 +76,7 @@ class ExpandableListItem extends ListItem {
         else {
             super.format(name, value);
         }
+        this.wasClicked = false;
     }
 
     getNodeLevel(node) {
@@ -119,7 +123,7 @@ class ExpandableListItem extends ListItem {
             nextNodeLevel = refNode.getNodeLevel(next.domNode);
 
             if (nextNodeLevel > depthLevel) {
-                break;
+                continue;
             }
 
             if (nodeLevel < nextNodeLevel) {
@@ -169,6 +173,7 @@ class ExpandableListItem extends ListItem {
         this.domNode.classList.add('expandable');
 
         const childNodes = this.getChildNodes();
+        console.log(childNodes);
         if (childNodes.length) {
             for (let i = 0 ; i < childNodes.length; i++) {
                 const childNode = childNodes[i];

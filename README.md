@@ -1,4 +1,4 @@
-Visit https://github.com/facebook/create-react-app for live demo.
+Visit https://festive-pike-f98ac5.netlify.app/ for live demo.
 
 ![Alt Text](https://github.com/sakibrahmanchy/quill-js-expandable-bullets/blob/master/expandable-bullets.gif)
 
